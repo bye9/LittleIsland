@@ -51,6 +51,14 @@
 			);
 			target = D1FF53072FF3D594009D6795 /* LittleIsland */;
 		};
+		D17E56C32FFBE40C00F309F7 /* Exceptions for "LittleIsland" folder in "IslandWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Domain/MoodPolicy.swift,
+				Core/Models/Mood.swift,
+			);
+			target = D1FF531A2FF67500009D6795 /* IslandWidgetExtension */;
+		};
 		D1FF532E2FF67500009D6795 /* Exceptions for "IslandWidget" folder in "IslandWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -63,6 +71,9 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D1FF530A2FF3D594009D6795 /* LittleIsland */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D17E56C32FFBE40C00F309F7 /* Exceptions for "LittleIsland" folder in "IslandWidgetExtension" target */,
+			);
 			path = LittleIsland;
 			sourceTree = "<group>";
 		};
@@ -460,6 +471,7 @@
 				INFOPLIST_FILE = IslandWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IslandWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,6 +502,7 @@
 				INFOPLIST_FILE = IslandWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IslandWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

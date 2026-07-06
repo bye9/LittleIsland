@@ -30,7 +30,12 @@ struct ContentView: View {
         
         // 2. attributes(정적) + 초기 ContentState(동적) 준비
         let attributes = IslandWidgetAttributes(name: "Sample")
-        let contentState = IslandWidgetAttributes.ContentState(pose: "😩")
+        
+        let hour = Calendar.current.component(.hour, from: Date())
+        let mood = MoodPolicy.policy(hour: hour)
+        
+        let contentState = IslandWidgetAttributes.ContentState(mood: mood)
+        
         // 3. Activity.request(for:content:)로 시작
         do {
             let activity = try Activity.request(attributes: attributes, content: ActivityContent(state: contentState, staleDate: nil))

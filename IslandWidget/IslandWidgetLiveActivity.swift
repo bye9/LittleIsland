@@ -12,7 +12,7 @@ import SwiftUI
 struct IslandWidgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic stateful properties about your activity go here!
-        var pose: String
+        var mood: Mood
     }
 
     // Fixed non-changing properties about your activity go here!
@@ -24,7 +24,7 @@ struct IslandWidgetLiveActivity: Widget {
         ActivityConfiguration(for: IslandWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.pose)")
+                Text("Hello \(context.state.mood)")
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
@@ -40,15 +40,15 @@ struct IslandWidgetLiveActivity: Widget {
                     Text("Trailing")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.pose)")
+                    Text("Bottom \(context.state.mood)")
                     // more content
                 }
             } compactLeading: {
                 Text("L")
             } compactTrailing: {
-                Text("T \(context.state.pose)")
+                Text("T \(context.state.mood)")
             } minimal: {
-                Text(context.state.pose)
+                Text("\(context.state.mood)")
             }
             .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
@@ -64,11 +64,11 @@ extension IslandWidgetAttributes {
 
 extension IslandWidgetAttributes.ContentState {
     fileprivate static var smiley: IslandWidgetAttributes.ContentState {
-        IslandWidgetAttributes.ContentState(pose: "😀")
+        IslandWidgetAttributes.ContentState(mood: .normal)
      }
      
      fileprivate static var starEyes: IslandWidgetAttributes.ContentState {
-         IslandWidgetAttributes.ContentState(pose: "🤩")
+         IslandWidgetAttributes.ContentState(mood: .relaxing)
      }
 }
 
