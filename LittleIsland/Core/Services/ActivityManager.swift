@@ -50,5 +50,13 @@ class ActivityManager {
             }
         }
     }
+    
+    func toggleActivity() {
+        if isActive {
+            refreshActivity()
+        } else {
+            startActivity()
+        }
+    }
 }
 

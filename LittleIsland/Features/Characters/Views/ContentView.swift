@@ -17,12 +17,10 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             
-            Button(action: manager.startActivity) {
-                if manager.isActive {
-                    Text("지금 갱신")
-                } else {
-                    Text("시작하기")
-                }
+            Button {
+                manager.toggleActivity()
+            } label: {
+                Text(manager.isActive ? "지금 갱신" : "시작하기")
             }
             
             if manager.isActive {
