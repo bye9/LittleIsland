@@ -9,7 +9,7 @@ import SwiftUI
 import ActivityKit
 
 struct ContentView: View {
-    @State private var manager = ActivityManager()
+    @Environment(ActivityManager.self) var manager: ActivityManager
 
     var body: some View {
         VStack {
@@ -39,4 +39,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(ActivityManager())
 }
