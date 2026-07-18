@@ -24,7 +24,7 @@ struct IslandWidgetLiveActivity: Widget {
         ActivityConfiguration(for: IslandWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.mood)")
+                Text("Hello \(context.state.mood.characterType)")
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
@@ -44,9 +44,9 @@ struct IslandWidgetLiveActivity: Widget {
                     // more content
                 }
             } compactLeading: {
-                Text("L")
+                Text("\(context.state.mood.characterType)")
             } compactTrailing: {
-                Text("T \(context.state.mood)")
+                Image(systemName: context.state.mood.symbol)
             } minimal: {
                 Text("\(context.state.mood)")
             }
@@ -63,18 +63,31 @@ extension IslandWidgetAttributes {
 }
 
 extension IslandWidgetAttributes.ContentState {
-    fileprivate static var smiley: IslandWidgetAttributes.ContentState {
+    fileprivate static var normal: IslandWidgetAttributes.ContentState {
         IslandWidgetAttributes.ContentState(mood: .normal)
-     }
-     
-     fileprivate static var starEyes: IslandWidgetAttributes.ContentState {
-         IslandWidgetAttributes.ContentState(mood: .relaxing)
-     }
+    }
+    
+    fileprivate static var relaxing: IslandWidgetAttributes.ContentState {
+        IslandWidgetAttributes.ContentState(mood: .relaxing)
+    }
+    
+    fileprivate static var sleeping: IslandWidgetAttributes.ContentState {
+        IslandWidgetAttributes.ContentState(mood: .sleeping)
+    }
 }
 
-#Preview("Notification", as: .content, using: IslandWidgetAttributes.preview) {
+#Preview("Compact", as: .content, using: IslandWidgetAttributes.preview) {
    IslandWidgetLiveActivity()
 } contentStates: {
-    IslandWidgetAttributes.ContentState.smiley
-    IslandWidgetAttributes.ContentState.starEyes
+    IslandWidgetAttributes.ContentState.normal
+    IslandWidgetAttributes.ContentState.relaxing
+    IslandWidgetAttributes.ContentState.sleeping
+}
+
+#Preview("Notification", as: .dynamicIsland(.compact), using: IslandWidgetAttributes.preview) {
+   IslandWidgetLiveActivity()
+} contentStates: {
+    IslandWidgetAttributes.ContentState.normal
+    IslandWidgetAttributes.ContentState.relaxing
+    IslandWidgetAttributes.ContentState.sleeping
 }
