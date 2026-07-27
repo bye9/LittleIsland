@@ -12,8 +12,6 @@ import Foundation
 @Observable
 class ActivityManager {
     var isActive: Bool = false
-    // attributes(정적)
-    var attributes = IslandWidgetAttributes(name: "Sample")
     
     // 초기 ContentState(동적) 준비
     private func makeContentState() -> IslandWidgetAttributes.ContentState {
@@ -24,12 +22,13 @@ class ActivityManager {
         return contentState
     }
     
-    func startActivity() {
+    func startActivity(character: CharacterType) {
         // Live Activity가 활성 가능한 상태인지 먼저 확인
         if ActivityAuthorizationInfo().areActivitiesEnabled == false {
             return
         }
         
+        let attributes = IslandWidgetAttributes(character: character)
         let contentState = makeContentState()
         // request
         do {
@@ -55,7 +54,22 @@ class ActivityManager {
         if isActive {
             refreshActivity()
         } else {
-            startActivity()
+            startActivity(character: .cat)
+        }
+    }
+    
+    func endActivity() async {
+        if let activity = Activity<IslandWidgetAttributes>.activities.first {
+            // update
+            await activity.end(nil, dismissalPolicy: .immediate)
+            isActive = false
+        }
+    }
+    
+    func changeCharacter(to character: CharacterType) {
+        Task {
+            await endActivity()
+            startActivity(character: character)
         }
     }
 }
