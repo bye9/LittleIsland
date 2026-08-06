@@ -5,7 +5,7 @@
 //  Created by JeongHwan Seok on 7/18/26.
 //
 
-enum CharacterType: String, Codable, Hashable {
+enum CharacterType: String, Codable, Hashable, CaseIterable {
     case cat, dog, turtle, fish, frog
     
     func assetName(for mood: Mood) -> String {
