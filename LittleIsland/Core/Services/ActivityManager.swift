@@ -49,15 +49,7 @@ class ActivityManager {
             }
         }
     }
-    
-    func toggleActivity() {
-        if isActive {
-            refreshActivity()
-        } else {
-            startActivity(character: .cat)
-        }
-    }
-    
+
     func endActivity() async {
         if let activity = Activity<IslandWidgetAttributes>.activities.first {
             // update
@@ -66,9 +58,17 @@ class ActivityManager {
         }
     }
     
-    func changeCharacter(to character: CharacterType) {
-        Task {
-            await endActivity()
+    func setCharacter(to character: CharacterType) {
+        if let activity = Activity<IslandWidgetAttributes>.activities.first {
+            if activity.attributes.character == character {
+                refreshActivity()
+            } else {
+                Task {
+                    await endActivity()
+                    startActivity(character: character)
+                }
+            }
+        } else {
             startActivity(character: character)
         }
     }

@@ -11,7 +11,8 @@ struct CharacterSelectView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     let characters = CharacterType.allCases
     
-    @State private var selected: CharacterType = .dog
+    @State private var vm = CharacterSelectViewModel()
+    @Environment(ActivityManager.self) var manager: ActivityManager
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -26,15 +27,18 @@ struct CharacterSelectView: View {
                     .stroke(Color.gray, lineWidth: 2)
                     .frame(width: 100, height: 100)
                     
-                Text(selected.emoji(for: .normal))
+                Text(vm.selected.emoji(for: .normal))
                     .font(.system(size: 60))
 
             }.frame(maxWidth: .infinity)
             
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(characters, id: \.self) { character in
-                    Button(action: { selected = character }) {
-                        CharacterCell(character: character, isSelected: selected == character)
+                    Button(action: {
+                        vm.select(character)
+                        manager.setCharacter(to: character)
+                    }) {
+                        CharacterCell(character: character, isSelected: vm.selected == character)
                             .frame(width: 70, height: 70)
                     }
                 }
@@ -48,19 +52,17 @@ struct CharacterSelectView: View {
             }
             .padding(.bottom)
             
-            
-//            if manager.isActive {
-//                
-//            }
-            HStack(spacing: 8) {
-                Image(systemName: "checkmark.circle")     // fill 없이
-                Text("Dynamic Island에 있어요")
+            if manager.isActive {
+                HStack(spacing: 8) {
+                    Image(systemName: "checkmark.circle")     // fill 없이
+                    Text("Dynamic Island에 있어요")
+                }
+                .foregroundStyle(.green).bold()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity)
+                .background(Color.green.opacity(0.4), in: RoundedRectangle(cornerRadius: 12))
             }
-            .foregroundStyle(.green).bold()
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .frame(maxWidth: .infinity)
-            .background(Color.green.opacity(0.4), in: RoundedRectangle(cornerRadius: 12))
             
             Spacer()
         }
@@ -86,4 +88,5 @@ struct CharacterCell: View {
 
 #Preview {
     CharacterSelectView()
+        .environment(ActivityManager())
 }
