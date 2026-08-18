@@ -18,7 +18,7 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             
             Button {
-                manager.toggleActivity()
+//                manager.toggleActivity()
             } label: {
                 Text(manager.isActive ? "지금 갱신" : "시작하기")
             }

@@ -63,6 +63,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Core/Domain/MoodPolicy.swift,
+				Core/Models/CharacterType.swift,
 				Core/Models/Mood.swift,
 			);
 			target = D1FF531A2FF67500009D6795 /* IslandWidgetExtension */;

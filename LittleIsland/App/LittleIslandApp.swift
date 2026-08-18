@@ -14,7 +14,7 @@ struct LittleIslandApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CharacterSelectView()
                 .environment(manager)
         }        
         .onChange(of: phase) { oldValue, newValue in

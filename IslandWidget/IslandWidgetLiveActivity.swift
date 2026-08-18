@@ -16,7 +16,7 @@ struct IslandWidgetAttributes: ActivityAttributes {
     }
 
     // Fixed non-changing properties about your activity go here!
-    var name: String
+    var character: CharacterType
 }
 
 struct IslandWidgetLiveActivity: Widget {
@@ -24,7 +24,7 @@ struct IslandWidgetLiveActivity: Widget {
         ActivityConfiguration(for: IslandWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.mood.characterType)")
+                Text("Hello \(context.attributes.character.emoji(for: context.state.mood))")
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
@@ -40,11 +40,11 @@ struct IslandWidgetLiveActivity: Widget {
                     Text("Trailing")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.mood)")
+                    Text("Bottom \(context.attributes.character.emoji(for: context.state.mood))")
                     // more content
                 }
             } compactLeading: {
-                Text("\(context.state.mood.characterType)")
+                Text(context.attributes.character.emoji(for: context.state.mood))
             } compactTrailing: {
                 Image(systemName: context.state.mood.symbol)
             } minimal: {
@@ -58,7 +58,7 @@ struct IslandWidgetLiveActivity: Widget {
 
 extension IslandWidgetAttributes {
     fileprivate static var preview: IslandWidgetAttributes {
-        IslandWidgetAttributes(name: "World")
+        IslandWidgetAttributes(character: .cat)
     }
 }
 
